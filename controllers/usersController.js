@@ -5,14 +5,14 @@ const { validationResult } = require("express-validator");
 const { Op } = require("sequelize");
 
 exports.getAllUsers = catchAsync(async (req, res, next) => {
-  const users = await Users.findAll();
+  const users = await Users.findAll({
+    attributes: ["id", "name", "lastLoginTime", "status", "email", "createdAt"],
+  });
   res.json({
     status: "success",
     message: "Hamma foydalanuvchilarning ro'yxati berildi",
     error: null,
-    data: {
-      users,
-    },
+    data: { users },
   });
 });
 
